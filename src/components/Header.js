@@ -22,5 +22,6 @@ const Topo = styled.header`
     align-items: center;
     justify-content:center;
     color: #E8833A;
+    z-index: 1;
 
 `
