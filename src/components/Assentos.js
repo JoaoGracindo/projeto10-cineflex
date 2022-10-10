@@ -17,12 +17,13 @@ export default function Assentos({ info, setInfo }) {
 
   function Seats({ name, id, selected, isAvailable }) {
     return (
-      <Assento data-identifier="seat"
+      <Assento
+        data-identifier="seat"
         onClick={() => {
           if (isAvailable) {
             selecionar(id, name);
-          }else{
-            alert("Esse assento não está disponível")
+          } else {
+            alert("Esse assento não está disponível");
           }
         }}
         isAvailable={isAvailable}
@@ -40,13 +41,12 @@ export default function Assentos({ info, setInfo }) {
         `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
       )
       .then((response) => {
-        
         setSeats([...response.data.seats]);
         setMovie(response.data.movie);
         object = response.data;
-        let time = object.name
+        let time = object.name;
         console.log(object.day);
-        setInfo({ ...object.day,horario:time});
+        setInfo({ ...object.day, horario: time });
       });
   }, []);
 
@@ -115,6 +115,11 @@ export default function Assentos({ info, setInfo }) {
               isAvailable={seat.isAvailable}
             />
           ))}
+          <Legenda>
+            <Seats isAvailable={false} selected={false} />
+            <Seats isAvailable={true} selected={true} />
+            <Seats isAvailable={true} selected={false} />
+          </Legenda>
         </SeatsContainer>
         <form onSubmit={reservarAssentos}>
           <div className="container">
@@ -148,13 +153,25 @@ export default function Assentos({ info, setInfo }) {
             <span>{movie.title}</span>
           </div>
           <div>
-            <span>{info.weekday} - {info.horario}</span>
+            <span>
+              {info.weekday} - {info.horario}
+            </span>
           </div>
         </div>
       </Footer>
     </>
   );
 }
+
+
+const Legenda = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    
+
+`;
 
 const SeatsContainer = styled.div`
   display: flex;
