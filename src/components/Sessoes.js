@@ -114,13 +114,13 @@ export default function Sessoes() {
 
   function SessionDays({ id, weekday, date, showtimes }) {
     return (
-      <div>
+      <div data-identifier="session-date">
         <Dia>
           {weekday} - {date}
         </Dia>
         <Showtimes>
           {showtimes.map((v) => (
-            <Link to={`/assentos/${v.id}`} key={v.id}>
+            <Link data-identifier="hour-minute-btn" to={`/assentos/${v.id}`} key={v.id}>
               {v.name}
             </Link>
           ))}
@@ -142,7 +142,7 @@ export default function Sessoes() {
           ))}
         </Session>
       </Main>
-      <Footer>
+      <Footer data-identifier="movie-img-preview">
         <img src={movie.posterURL} />
         <span>{movie.title}</span>
       </Footer>

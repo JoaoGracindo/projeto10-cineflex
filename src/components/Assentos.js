@@ -17,10 +17,12 @@ export default function Assentos({ info, setInfo }) {
 
   function Seats({ name, id, selected, isAvailable }) {
     return (
-      <Assento
+      <Assento data-identifier="seat"
         onClick={() => {
           if (isAvailable) {
             selecionar(id, name);
+          }else{
+            alert("Esse assento não está disponível")
           }
         }}
         isAvailable={isAvailable}
@@ -38,11 +40,13 @@ export default function Assentos({ info, setInfo }) {
         `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
       )
       .then((response) => {
+        
         setSeats([...response.data.seats]);
         setMovie(response.data.movie);
         object = response.data;
+        let time = object.name
         console.log(object.day);
-        setInfo({ ...object.day,horario:object.name });
+        setInfo({ ...object.day,horario:time});
       });
   }, []);
 
@@ -65,7 +69,6 @@ export default function Assentos({ info, setInfo }) {
       .then((e) => {
         setInfo({
           ...info,
-          horario: object.name,
           nomeFilme: movie.title,
           seats: numeroAssentos,
           user: body,
@@ -138,7 +141,7 @@ export default function Assentos({ info, setInfo }) {
           <button type="submit">Reservar Assentos</button>
         </form>
       </Main>
-      <Footer>
+      <Footer data-identifier="movie-and-session-infos-preview">
         <img src={movie.posterURL} />
         <div>
           <div>

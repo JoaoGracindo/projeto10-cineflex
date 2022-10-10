@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Filme({ imagem, id }) {
   return (
     
-      <Poster>
+      <Poster data-identifier="movie-outdoor">
         <Link to={`/sessoes/${id}`}>
             <div>
             <img src={imagem} />
