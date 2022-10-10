@@ -28,4 +28,55 @@ export default function Sucesso({ info }) {
 const ContainerSucesso = styled.div`
     position:fixed;
     top:67px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    width:100%;
+
+    div{
+        margin-top:20px;
+    }
+
+    button{
+        width: 225px;
+        height: 42px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.04em;
+
+        color: #FFFFFF;
+        background-color: #E8833A;
+        border-radius: 3px;
+        margin-top:60px;
+        border:none;
+
+    }
+
+    h1{
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 28px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.04em;
+        color: #293845;
+    }
+
+    p{
+
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 26px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.04em;
+
+        color: #293845;
+
+    }
 `

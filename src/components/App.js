@@ -5,12 +5,14 @@ import Assentos from "./Assentos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Sucesso from "./Sucesso";
+import { createGlobalStyle } from "styled-components";
 
 
 export default function App(){
     const [info, setInfo] = useState({})
     return(
         <BrowserRouter>
+        <GlobalStyle/>
 
             <Header/>
             <Routes>
@@ -23,3 +25,12 @@ export default function App(){
         </BrowserRouter>
     )
 }
+
+const GlobalStyle = createGlobalStyle`
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+`

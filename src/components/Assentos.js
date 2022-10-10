@@ -212,7 +212,6 @@ const Footer = styled.div`
   }
 
   & span {
-    font-family: "Roboto";
     font-weight: 400;
     font-size: 26px;
     line-height: 30px;
