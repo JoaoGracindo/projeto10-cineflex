@@ -116,9 +116,19 @@ export default function Assentos({ info, setInfo }) {
             />
           ))}
           <Legenda>
-            <Seats isAvailable={false} selected={false} />
+            <div>
+              <Seats isAvailable={false} selected={false} />
+              <div>Indisponivel</div>
+            </div>
+            <div>
+              <Seats isAvailable={true} selected={false} />
+              <div>disponível</div>
+            </div>
+            <div>
             <Seats isAvailable={true} selected={true} />
-            <Seats isAvailable={true} selected={false} />
+            <div>Selecionado</div>
+            </div>
+            
           </Legenda>
         </SeatsContainer>
         <form onSubmit={reservarAssentos}>
@@ -163,14 +173,10 @@ export default function Assentos({ info, setInfo }) {
   );
 }
 
-
 const Legenda = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    
-
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 const SeatsContainer = styled.div`
