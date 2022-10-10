@@ -1,25 +1,30 @@
 import styled from "styled-components";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Assentos() {
+export default function Assentos({info, setInfo}) {
   const { idSessao } = useParams();
   const [seats, setSeats] = useState([]);
   const [movie, setMovie] = useState({});
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [ids,setIds] = useState([]);
+  const [numeroAssentos, setNumeroAssentos] = useState([])
+  let arrayNum = [];
   let arrayId = [];
+  let object = {};
 
   function Seats({name, id, selected, isAvailable}){
 
     return(
-      <Assento onClick={() => selecionar(id)} isAvailable={isAvailable} selected={selected}>
+      <Assento onClick={() => {if(isAvailable){selecionar(id,name)}}} isAvailable={isAvailable} selected={selected}>
         {name}
       </Assento>
     )
   }
+
+const navigate = useNavigate()
   useEffect(() => {
     axios
       .get(
@@ -28,30 +33,53 @@ export default function Assentos() {
       .then((response) => {
         setSeats([...response.data.seats]);
         setMovie(response.data.movie);
+        object = response.data;
+        console.log(object.day)
+        setInfo({...object.day})
       });
   }, []);
 
   function reservarAssentos(e){
     e.preventDefault();
-    console.log(nome,cpf)
+    console.log(ids)
     const body = {
-      ids: arrayId,
+      ids: ids,
       nome:nome,
       cpf:cpf
     };
+    if(!(body.ids && body.cpf && body.nome)){
+      return
+    }
     axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",body )
-    .then(() => {console.log("foi")})
+    .then((e) => {
+      setInfo({
+        ...info,
+        horario: object.name,
+        nomeFilme: movie.title,
+        seats:numeroAssentos,
+        user: body
+      })
+      console.log(e)
+      console.log(info)
+      navigate('/sucesso');
+      })
+      .catch(() => {return})
   }
 
-  function selecionar(id){
+  function selecionar(id,name){
       if(ids.includes(id)){
         setIds(ids.filter((i) => i != id))
         arrayId = ids.filter((i) => i != id)
+        setNumeroAssentos(numeroAssentos.filter((i) => i !== name))
+        arrayNum = numeroAssentos.filter((i) => i !== name)
       }else{
         setIds([...ids,id])
         arrayId = [...ids,id]
+        setNumeroAssentos([...numeroAssentos,name])
+        arrayNum = [...numeroAssentos,name]
   } 
   console.log(arrayId)
+  console.log(arrayNum)
 }
 
   if (!seats) {
@@ -63,13 +91,13 @@ export default function Assentos() {
         <SessionTitle>Selecione o(s) assento(s)</SessionTitle>
         <SeatsContainer>
           {seats.map((seat) => (
-            <Seats name={seat.name} selected={!ids.includes(seat.id)} id={seat.id} isAvailable={seat.isAvailable}/>
+            <Seats name={seat.name} selected={!ids.includes(seat.id)} key={seat.id} id={seat.id} isAvailable={seat.isAvailable}/>
           ))}
         </SeatsContainer>
         <form onSubmit={reservarAssentos}>
-          <label forHTML="nome">nome</label>
+          <label htmlFor="nome">nome</label>
           <input onChange={(e) => setNome(e.target.value)} id="nome" name="nome" type="text" required/>
-          <label forHTML="cpf">cpf</label>
+          <label htmlFor="cpf">cpf</label>
           <input onChange={(e) => setCpf(e.target.value)} id="cpf" name="cpf" type="cpf" required/>
           <button type="submit">Reservar Assentos</button>
         </form>
