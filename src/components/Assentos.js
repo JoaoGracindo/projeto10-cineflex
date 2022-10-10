@@ -175,8 +175,9 @@ export default function Assentos({ info, setInfo }) {
 
 const Legenda = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  width:100%;
 `;
 
 const SeatsContainer = styled.div`
