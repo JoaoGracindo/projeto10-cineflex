@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Sucesso({ info }) {
     console.log(info)
     const navigate = useNavigate()
   return (
-    <>
+    <ContainerSucesso>
       <div>
         <h1>Filme e sessão</h1>
         <p>{info.nomeFilme}</p>
@@ -20,6 +21,11 @@ export default function Sucesso({ info }) {
         <p>CPF: {info.user.cpf}</p>
       </div>
       <button onClick={() => navigate("/")}>Voltar pra Home</button>
-    </>
+    </ContainerSucesso>
   );
 }
+
+const ContainerSucesso = styled.div`
+    position:fixed;
+    top:67px;
+`
